@@ -1,6 +1,7 @@
 import math
 import numpy as np
 from collections import Counter
+from .metrics import accaracy_score
 
 class KNNClf():
 
@@ -37,4 +38,10 @@ class KNNClf():
         predict_value = votes.most_common(1)[0][0]
 
         return predict_value
+
+    def score(self,X_test,y_test):
+        self.X_test = X_test
+        self.y_test = y_test
+        y_predict = self.predict(self.X_test)
+        return accaracy_score(y_predict,self.y_test)
 
