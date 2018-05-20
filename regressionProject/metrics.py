@@ -1,8 +1,29 @@
 import numpy as np
+from math import sqrt
 
-def myTrain_test_split(X,y,test_ratio=0.2,seed = None):
+def mean_squared_error(y,y_predict):
+    assert y.shape == y_predict.shape, \
+        "the size of y must be equal to the size of the y_predict"
+
+    return sum((y - y_predict)**2)/len(y)
+
+def root_mean_squared_error(y,y_predict):
+
+    return sqrt(mean_squared_error(y,y_predict))
+
+def mean_absolute_error(y,y_predict):
+    assert y.shape == y_predict.shape, \
+        "the size of y must be equal to the size of the y_predict"
+
+    return sum(np.absolute(y - y_predict))/len(y)
+
+def r2_score(y,y_predict):
+
+    return 1-(mean_squared_error(y,y_predict)/np.var(y))
+
+
+def train_test_split(X,y,test_ratio=0.2,seed = None):
     '''
-
     :param X: input data set
     :param y: input lable set
     :param test_ratio: the proportion of test data set
@@ -26,3 +47,5 @@ def myTrain_test_split(X,y,test_ratio=0.2,seed = None):
     y_train = y[shuffle_indexes[test_number:]]
 
     return X_train,X_test,y_train,y_test
+
+
